@@ -6,7 +6,7 @@ data Prop where
     And :: Prop -> Prop -> Prop
     Or :: Prop -> Prop -> Prop
     Imply :: Prop -> Prop -> Prop
-    Equivalence :: Prop -> Prop -> Prop
+    Eq :: Prop -> Prop -> Prop
 
 -- more types
 type Assoc k v = [(k, v)]
@@ -24,7 +24,7 @@ eval s (Not p) = not (eval s p)
 eval s (And p q) = eval s p && eval s q
 eval s (Or p q) = eval s p || eval s q
 eval s (Imply p q) = eval s p <= eval s q
-eval s (Equivalence p q) = eval s p == eval s q
+eval s (Eq p q) = eval s p == eval s q
 
 -- returns all vars for a given proposition
 vars :: Prop -> [Char]
@@ -34,7 +34,7 @@ vars (Not p) = vars p
 vars (And p q) = vars p ++ vars q
 vars (Or p q) = vars p ++ vars q
 vars (Imply p q) = vars p ++ vars q
-vars (Equivalence p q) = vars p ++ vars q
+vars (Eq p q) = vars p ++ vars q
 
 -- creates bools for n variables
 bools :: Int -> [[Bool]]
